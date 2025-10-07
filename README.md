@@ -48,6 +48,9 @@ Desarrollado con *Nest.js, ofrece una arquitectura **modular, escalable y segura
 ## 🧱 Arquitectura del Proyecto
 
 
+## 🧱 Arquitectura del Proyecto
+
+```
 /src
  ├── modules/
  │    ├── auth/           # Registro, login, validación de usuarios
@@ -60,8 +63,8 @@ Desarrollado con *Nest.js, ofrece una arquitectura **modular, escalable y segura
  ├── database/            # Configuración y conexión a MongoDB/Firebase
  ├── main.ts              # Punto de entrada principal
  └── app.module.ts        # Módulo raíz de Nest.js
-
-
+ 
+```
 ---
 
 ## 🔌 Endpoints Principales
