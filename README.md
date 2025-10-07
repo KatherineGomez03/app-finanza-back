@@ -1,98 +1,182 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🧠 Finlúdica – Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+> API REST para la gestión de finanzas personales con elementos de gamificación.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🎯 Descripción General
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+El *Backend de Finlúdica* provee la lógica de negocio, la gestión de datos y las reglas de gamificación de la aplicación web.  
+Desarrollado con *Nest.js, ofrece una arquitectura **modular, escalable y segura*, que permite manejar:
 
-## Project setup
+- Autenticación y gestión de usuarios.  
+- Registro y consulta de gastos e ingresos.  
+- Configuración de metas financieras personalizadas.  
+- Sistema de desafíos, logros y niveles.  
+- Integración futura con IA para análisis de hábitos financieros.
 
-```bash
-$ pnpm install
-```
+---
 
-## Compile and run the project
+## 🧩 Características Principales
 
-```bash
-# development
-$ pnpm run start
+- API REST estructurada en módulos independientes.  
+- Autenticación mediante *JWT (JSON Web Token)*.  
+- CRUD completo de *usuarios, gastos e ingresos*.  
+- Implementación de *metas, logros y desafíos* con lógica de gamificación.  
+- Validaciones mediante *DTOs* y *pipes personalizados*.  
+- Documentación automática con *Swagger*.  
+- Compatibilidad con *MongoDB* o *Firebase Firestore* como base de datos.  
+- Preparado para despliegue en entornos cloud (Render, Railway, etc).
 
-# watch mode
-$ pnpm run start:dev
+---
 
-# production mode
-$ pnpm run start:prod
-```
+## 🧠 Tecnologías Utilizadas
 
-## Run tests
+| Área | Tecnología | Descripción |
+|------|-------------|-------------|
+| *Framework* | [Nest.js](https://nestjs.com/) | Framework progresivo para Node.js con arquitectura modular. |
+| *Lenguaje* | TypeScript | Lenguaje con tipado fuerte para mayor seguridad y escalabilidad. |
+| *Base de Datos (principal)* | [MongoDB](https://www.mongodb.com/) | Base NoSQL orientada a documentos. |
+| *Alternativa* | [Firebase Firestore](https://firebase.google.com/) | Base de datos cloud con sincronización en tiempo real. |
+| *ORM / ODM* | [Mongoose](https://mongoosejs.com/) | Modelado de esquemas para MongoDB. |
+| *Autenticación* | JWT (JSON Web Token) | Control de sesiones seguro y basado en tokens. |
+| *Documentación* | [Swagger](https://swagger.io/) | Generación automática de documentación de la API. |
+| *Testing* | [Jest](https://jestjs.io/) | Framework para pruebas unitarias y de integración. |
 
-```bash
-# unit tests
-$ pnpm run test
+---
 
-# e2e tests
-$ pnpm run test:e2e
+## 🧱 Arquitectura del Proyecto
 
-# test coverage
-$ pnpm run test:cov
-```
 
-## Deployment
+/src
+ ├── modules/
+ │    ├── auth/           # Registro, login, validación de usuarios
+ │    ├── expenses/       # CRUD de gastos e ingresos
+ │    ├── goals/          # Gestión de metas de ahorro
+ │    ├── achievements/   # Logros y niveles del usuario
+ │    └── challenges/     # Desafíos con recompensas
+ │
+ ├── common/              # Pipes, guards, interceptors, DTOs
+ ├── database/            # Configuración y conexión a MongoDB/Firebase
+ ├── main.ts              # Punto de entrada principal
+ └── app.module.ts        # Módulo raíz de Nest.js
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+---
 
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
-```
+## 🔌 Endpoints Principales
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+| Método | Endpoint | Descripción |
+|--------|-----------|-------------|
+| POST | /auth/register | Registro de nuevo usuario |
+| POST | /auth/login | Inicio de sesión y obtención de token |
+| GET | /users/me | Perfil del usuario autenticado |
+| GET | /expenses | Listado de transacciones (ingresos/gastos) |
+| POST | /expenses | Crear nueva transacción |
+| PUT | /expenses/:id | Editar una transacción existente |
+| DELETE | /expenses/:id | Eliminar transacción |
+| GET | /goals | Consultar metas activas |
+| PUT | /goals/:id | Actualizar meta de ahorro |
+| GET | /achievements | Listar logros y progreso |
+| GET | /challenges | Ver desafíos activos |
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+## ⚙️ Configuración del Entorno
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Crea un archivo .env en la raíz del backend con el siguiente formato:
 
-## Support
+env
+PORT=4000
+DATABASE_URL=mongodb+srv://<usuario>:<password>@cluster.mongodb.net/finludica
+JWT_SECRET=supersecretkey
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+Si usás *Firebase*, agregá también:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+env
+FIREBASE_PROJECT_ID=tu_proyecto
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nxxxx\n-----END PRIVATE KEY-----\n"
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk@tu-proyecto.iam.gserviceaccount.com
 
-## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+## 🚀 Scripts Disponibles
+
+| Comando | Descripción |
+|----------|-------------|
+| npm run start:dev | Inicia el servidor en modo desarrollo. |
+| npm run start | Ejecuta la app en modo producción. |
+| npm run build | Compila el proyecto. |
+| npm run test | Ejecuta las pruebas unitarias. |
+| npm run lint | Revisa el formato y estilo del código. |
+
+---
+
+## 🧪 Testing
+
+El proyecto utiliza *Jest* para pruebas unitarias y de integración.  
+Ejemplo:
+
+bash
+npm run test
+
+
+Los tests se ubican en las carpetas correspondientes a cada módulo:
+
+
+/src/modules/auth/__tests__
+/src/modules/expenses/__tests__
+
+
+---
+
+## 📚 Documentación de la API
+
+La documentación Swagger se genera automáticamente al ejecutar el proyecto.  
+Podés acceder desde tu navegador en:
+
+📄 http://localhost:4000/api/docs
+
+---
+
+## 🚀 Deploy
+
+### En Render o Railway
+1. Configurar las variables de entorno (PORT, DATABASE_URL, JWT_SECRET).  
+2. Ejecutar los scripts de build (npm run build).  
+3. Iniciar el servidor (npm run start:prod).  
+
+### Docker (opcional)
+Archivo Dockerfile de ejemplo:
+
+dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+CMD ["npm", "run", "start:prod"]
+EXPOSE 4000
+
+
+---
+
+## 🔮 Próximas Mejoras
+
+- Integración con IA para recomendaciones personalizadas de ahorro.  
+- Sistema de ranking y puntaje comunitario.  
+- WebSockets para actualizaciones en tiempo real.  
+- Módulo multiusuario (familia o grupo).  
+- Reportes descargables en PDF/CSV.  
+
+---
+
+## 🪙 Licencia
+
+Este proyecto se desarrolla con fines *educativos* y *de demostración*.  
+Todos los derechos reservados a sus autores.
+
+---
