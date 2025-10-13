@@ -15,8 +15,10 @@ export type UserDocument = BaseDocument & User;
 })
 export class User {
   static name = 'User';
-  @Prop({ required: true })
-  name: string;
+
+  // Campos básicos de autenticación
+  @Prop({ required: true, unique: true })
+  username: string;
 
   @Prop({ required: true, unique: true })
   email: string;
@@ -24,15 +26,39 @@ export class User {
   @Prop({ required: true })
   password: string;
 
+  @Prop({ type: [String], enum: UserRole, default: [UserRole.USER] })
+  roles: UserRole[];
+
+  // Campos RPG - Iniciales (se establecen al registrarse)
+  @Prop({ default: 1 })
+  level: number;
+
+  @Prop({ default: 100 })
+  maxHealth: number;
+
+  @Prop({ default: 100 })
+  health: number;
+
+  @Prop({ default: 10 })
+  attack: number;
+
+  @Prop({ default: 5 })
+  defense: number;
+
+  // Campos RPG - Progresivos (se van actualizando con el uso)
   @Prop({ default: 0 })
-  points: number;
+  experience: number;
+
+  @Prop({ default: 100 }) // Experiencia necesaria para el siguiente nivel
+  maxExperience: number;
 
   @Prop({ default: 0 })
-  diamonds: number;
+  coins: number;
 
   @Prop({ default: 0 })
   streak: number;
 
+  // Campos de control
   @Prop({ type: String, enum: UserRole, default: UserRole.USER })
   role: UserRole;
 
@@ -44,6 +70,16 @@ export class User {
 
   @Prop({ default: [] })
   achievements: string[];
+
+  // Estadísticas de juego
+  @Prop({ default: 0 })
+  transactionsRegistered: number;
+
+  @Prop({ default: 0 })
+  challengesCompleted: number;
+
+  @Prop({ default: 0 })
+  totalCoinsEarned: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
