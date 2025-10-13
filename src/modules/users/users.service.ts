@@ -53,7 +53,14 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<IUser | null> {
-    return this.userModel.findOne({ email, isDeleted: false });
+    console.log('Searching for user with email:', email);
+    const user = await this.userModel.findOne({ email });
+    console.log('Database search result:', {
+      found: !!user,
+      email: user?.email,
+      id: user?._id?.toString()
+    });
+    return user;
   }
 
   async findByUsername(username: string): Promise<IUser | null> {
