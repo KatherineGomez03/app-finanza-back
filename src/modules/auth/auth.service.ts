@@ -4,7 +4,6 @@ import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { CreateUserDto } from '../users/dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { UserRole } from '../users/schemas/user.schema';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -32,7 +31,6 @@ export class AuthService {
     const payload: JwtPayload = {
       sub: user._id.toString(),
       email: user.email,
-      roles: user.roles || [UserRole.USER],
     };
 
     return {
@@ -46,7 +44,6 @@ export class AuthService {
     const payload: JwtPayload = {
       sub: user._id.toString(),
       email: user.email,
-      roles: user.roles || [UserRole.USER],
     };
 
     return {

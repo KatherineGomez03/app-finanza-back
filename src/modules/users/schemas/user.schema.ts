@@ -1,11 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseDocument } from '../../../common/schemas/base.schema';
 
-export enum UserRole {
-  USER = 'user',
-  ADMIN = 'admin',
-}
-
 export type UserDocument = BaseDocument & User;
 
 @Schema({
@@ -25,9 +20,6 @@ export class User {
 
   @Prop({ required: true })
   password: string;
-
-  @Prop({ type: [String], enum: UserRole, default: [UserRole.USER] })
-  roles: UserRole[];
 
   // Campos RPG - Iniciales (se establecen al registrarse)
   @Prop({ default: 1 })
@@ -59,9 +51,6 @@ export class User {
   streak: number;
 
   // Campos de control
-  @Prop({ type: String, enum: UserRole, default: UserRole.USER })
-  role: UserRole;
-
   @Prop({ default: Date.now })
   lastLoginDate: Date;
 

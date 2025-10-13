@@ -19,13 +19,10 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto, UpdateUserDto, UserResponseDto } from './dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RolesGuard } from '../auth/guards/roles.guard';
-import { Roles } from '../auth/decorators/roles.decorator';
-import { UserRole } from './schemas/user.schema';
 
 @ApiTags('users')
 @Controller('users')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -47,7 +44,6 @@ export class UsersController {
   }
 
   @Get()
-  @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -90,7 +86,6 @@ export class UsersController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Delete a user' })
   @ApiParam({ name: 'id', description: 'User ID' })
   @ApiResponse({
