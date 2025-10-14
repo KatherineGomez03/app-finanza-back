@@ -1,4 +1,4 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -13,7 +13,10 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<IUser> {
-    // Verificar si el usuario ya existe
+    const logger = new Logger('UsersService');
+    logger.log('==== Starting User Creation ====');
+    
+    // verifica si el usuario ya existe
     const existingUser = await this.userModel.findOne({
       $or: [
         { email: createUserDto.email },
@@ -22,14 +25,21 @@ export class UsersService {
     });
 
     if (existingUser) {
+      logger.log('❌ User already exists');
       throw new ConflictException(
         'User already exists with this email or username',
       );
     }
 
-    // Hash de la contraseña
-    const salt = await bcrypt.genSalt();
+    logger.log('✅ User does not exist, proceeding with creation');
+    
+    // Hash de la contraseña con configuración específica
+    const salt = await bcrypt.genSalt(10); // Usando 10 rounds específicamente
     const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
+    
+    logger.log('✅ Password hashed successfully');
+    logger.log('Original password length:', createUserDto.password.length);
+    logger.log('Hashed password length:', hashedPassword.length);
 
     // Crear el nuevo usuario
     const user = new this.userModel({
@@ -37,15 +47,19 @@ export class UsersService {
       password: hashedPassword,
     });
 
-    return user.save();
+    const savedUser = await user.save();
+    logger.log('✅ User saved successfully');
+    logger.log('Saved password hash:', savedUser.password);
+    
+    return savedUser;
   }
 
   async findAll(): Promise<IUser[]> {
-    return this.userModel.find({ isDeleted: false }).exec();
+    return this.userModel.find().exec();
   }
 
   async findOne(id: string): Promise<IUser> {
-    const user = await this.userModel.findOne({ _id: id, isDeleted: false });
+    const user = await this.userModel.findOne({ _id: id });
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -53,13 +67,34 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<IUser | null> {
-    console.log('Searching for user with email:', email);
-    const user = await this.userModel.findOne({ email });
-    console.log('Database search result:', {
-      found: !!user,
-      email: user?.email,
-      id: user?._id?.toString()
-    });
+    const logger = new Logger('UsersService');
+    logger.log('\n🔍 ==== BÚSQUEDA DE USUARIO POR EMAIL ==== 🔍');
+    logger.log('Email a buscar:', email);
+    
+    // Buscar el usuario por email
+    const user = await this.userModel.findOne({ email: email }).exec();
+    
+    if (user) {
+      logger.log('✅ Usuario encontrado');
+      logger.log('Datos del usuario:', {
+        id: user._id,
+        email: user.email,
+        username: user.username
+      });
+
+      // Debug adicional del documento
+      logger.log('Documento completo:', JSON.stringify(user.toObject(), null, 2));
+    } else {
+      logger.log('❌ Usuario no encontrado');
+      
+      // Debug adicional
+      const allUsers = await this.userModel.find({}, { email: 1 }).exec();
+      logger.log('📋 Todos los usuarios en la base de datos:');
+      allUsers.forEach(u => {
+        logger.log(`- Email: ${u.email}`);
+      });
+    }
+    
     return user;
   }
 
