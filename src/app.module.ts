@@ -33,6 +33,8 @@ import databaseConfig from './config/database.config';
     }),
     DatabaseModule,
     HealthModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

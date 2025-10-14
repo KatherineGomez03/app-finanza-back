@@ -27,6 +27,9 @@ RUN pnpm run build
 # Etapa de desarrollo
 FROM node:18-alpine AS development
 
+# Actualizar e instalar dependencias necesarias
+RUN apk update && apk add --no-cache python3 make g++
+
 # Instalar pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 

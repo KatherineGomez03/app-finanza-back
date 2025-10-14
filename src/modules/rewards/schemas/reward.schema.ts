@@ -35,8 +35,8 @@ export class Reward {
   @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], autopopulate: true })
   unlockedBy: Types.ObjectId[];
 
-  @Prop({ required: true })
-  conditions: object;
+  @Prop({ type: Object, required: true })
+  conditions: Record<string, any>;
 
   @Prop({ default: true })
   isAvailable: boolean;

@@ -45,8 +45,8 @@ export class Challenge {
   @Prop({ required: true })
   endDate: Date;
 
-  @Prop({ required: true })
-  conditions: object;
+  @Prop({ type: Object, required: true })
+  conditions: Record<string, any>;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], autopopulate: true })
   participants: Types.ObjectId[];
