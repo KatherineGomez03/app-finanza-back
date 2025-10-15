@@ -89,17 +89,9 @@ Desarrollado con *Nest.js, ofrece una arquitectura **modular, escalable y segura
 Crea un archivo .env en la raíz del backend con el siguiente formato:
 
 env
-PORT=4000
+PORT=3000
 DATABASE_URL=mongodb+srv://<usuario>:<password>@cluster.mongodb.net/finludica
 JWT_SECRET=supersecretkey
-
-
-Si usás *Firebase*, agregá también:
-
-env
-FIREBASE_PROJECT_ID=tu_proyecto
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nxxxx\n-----END PRIVATE KEY-----\n"
-FIREBASE_CLIENT_EMAIL=firebase-adminsdk@tu-proyecto.iam.gserviceaccount.com
 
 
 ---
@@ -108,11 +100,27 @@ FIREBASE_CLIENT_EMAIL=firebase-adminsdk@tu-proyecto.iam.gserviceaccount.com
 
 | Comando | Descripción |
 |----------|-------------|
-| npm run start:dev | Inicia el servidor en modo desarrollo. |
-| npm run start | Ejecuta la app en modo producción. |
-| npm run build | Compila el proyecto. |
-| npm run test | Ejecuta las pruebas unitarias. |
-| npm run lint | Revisa el formato y estilo del código. |
+| pnpm run start:dev | Inicia el servidor en modo desarrollo. |
+| pnpm run start | Ejecuta la app en modo producción. |
+| pnpm run build | Compila el proyecto. |
+| pnpm run test | Ejecuta las pruebas unitarias. |
+| pnpm run lint | Revisa el formato y estilo del código. |
+
+### 🐳 Configuración con Docker
+
+Para ejecutar el proyecto usando Docker:
+
+1. Copia el gist del docker-compose.yml recuerda ponerlo en la raiz del proyecto (una carpeta antes del proyecto de backend):
+```bash
+https://gist.github.com/b9483a97f1b6461e08c363c65b5f3446.git
+```
+
+2. Ejecuta los contenedores:
+```bash
+docker compose up
+```
+
+El proyecto estará disponible en http://localhost:3000
 
 ---
 
@@ -122,7 +130,7 @@ El proyecto utiliza *Jest* para pruebas unitarias y de integración.
 Ejemplo:
 
 bash
-npm run test
+pnpm run test
 
 
 Los tests se ubican en las carpetas correspondientes a cada módulo:
@@ -131,15 +139,6 @@ Los tests se ubican en las carpetas correspondientes a cada módulo:
 /src/modules/auth/__tests__
 /src/modules/expenses/__tests__
 
-
----
-
-## 📚 Documentación de la API
-
-La documentación Swagger se genera automáticamente al ejecutar el proyecto.  
-Podés acceder desde tu navegador en:
-
-📄 http://localhost:4000/api/docs
 
 ---
 
@@ -154,7 +153,7 @@ Podés acceder desde tu navegador en:
 Archivo Dockerfile de ejemplo:
 
 dockerfile
-FROM node:20-alpine
+FROM node:18-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
