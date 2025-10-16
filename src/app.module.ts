@@ -8,6 +8,7 @@ import { DatabaseModule } from './modules/database/database.module';
 import { HealthModule } from './health/health.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
+import { ExpensesModule } from './modules/expenses/expenses.module';
 import databaseConfig from './config/database.config';
 
 @Module({
@@ -35,6 +36,7 @@ import databaseConfig from './config/database.config';
     HealthModule,
     AuthModule,
     UsersModule,
+    ExpensesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

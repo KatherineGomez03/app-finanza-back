@@ -7,16 +7,18 @@ async function bootstrap() {
   try {
     logger.log('Starting application...');
     const app = await NestFactory.create(AppModule);
-    
+
     logger.log('Enabling CORS...');
     app.enableCors();
-    
+
     logger.log('Configuring validation pipe...');
-    app.useGlobalPipes(new ValidationPipe({
-      whitelist: true,
-      transform: true,
-      forbidNonWhitelisted: true,
-    }));
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        transform: true,
+        forbidNonWhitelisted: true,
+      }),
+    );
 
     const port = process.env.PORT ?? 3000;
     logger.log(`Starting server on port ${port}...`);
@@ -28,7 +30,7 @@ async function bootstrap() {
   }
 }
 
-bootstrap().catch(err => {
+bootstrap().catch((err) => {
   console.error('Fatal error:', err);
   process.exit(1);
 });
